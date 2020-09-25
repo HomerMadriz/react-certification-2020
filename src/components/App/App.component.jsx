@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import AuthProvider from '../../providers/Auth';
 import Layout from '../Layout';
 import Navbar from '../Navbar';
-import CardContainer from '../CardContainer'
+import CardContainer from '../CardContainer';
 import { random } from '../../utils/fns';
 import VideoPlayerContainer from '../VideoPlayerContainer/VideoPlayerContainer.component';
 
@@ -31,16 +31,16 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Navbar />
-          <Layout>
-            <Switch>
-              <Route exact path="/">
-                <CardContainer />
-              </Route>
-              <Route path="/player">
-                <VideoPlayerContainer />
-              </Route>
-            </Switch>
-          </Layout>
+        <Layout>
+          <Switch>
+            <Route exact path="/">
+              <CardContainer />
+            </Route>
+            <Route path="/player">
+              <VideoPlayerContainer />
+            </Route>
+          </Switch>
+        </Layout>
       </AuthProvider>
     </BrowserRouter>
   );
