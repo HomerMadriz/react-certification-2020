@@ -4,7 +4,7 @@ import VideoListElement from '../VideoListElement';
 
 const List = styled.div`
   width: 30%;
-  height: 100%;
+  height: 900px;
   overflow: scroll;
 `;
 

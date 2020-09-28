@@ -1,4 +1,4 @@
-export const VideoReducer = (state, action) => {
+const VideoReducer = (state, action) => {
     switch (action.type) {
         case "SET_CURRENT_VIDEO": {
             console.log("Setting current video")
