@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useReducer, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import AuthProvider from '../../providers/Auth';
@@ -7,8 +7,32 @@ import Navbar from '../Navbar';
 import CardContainer from '../CardContainer';
 import { random } from '../../utils/fns';
 import VideoPlayerContainer from '../VideoPlayerContainer/VideoPlayerContainer.component';
+import useYoutube from '../../utils/hooks/useYoutube';
+import VideoReducer from '../../State/Videos/VideoReducer';
+import VideoContext from '../../State/Videos/VideoContext';
+import FavoritesContainer from '../FavoritesContainer/FavoritesContainer.component';
 
+//API_KEY = "AIzaSyBh7m2YgDH-ATwhZ6v-CBh8qqTMVCvOqBs"
 function App() {
+
+  const [searchWord, setSearchWord] = useState('Wizeline');
+  const [query, setQuery] = useState(searchWord);
+  const videos = useYoutube(query);
+  const [state, dispatch] = useReducer(VideoReducer, {
+    videos,
+    currentVideo: {},
+    favorites: []
+  });
+
+  useEffect(() => {
+    dispatch({ type: "SET_VIDEOS", payload: videos })
+  }, [videos]);
+
+  const search = (event) => {
+    event.preventDefault();
+    setQuery(searchWord);
+  }
+
   useLayoutEffect(() => {
     const { body } = document;
 
@@ -30,17 +54,22 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Navbar />
-        <Layout>
-          <Switch>
-            <Route exact path="/">
-              <CardContainer />
-            </Route>
-            <Route path="/player">
-              <VideoPlayerContainer />
-            </Route>
-          </Switch>
-        </Layout>
+        <VideoContext.Provider value={{ state, dispatch }}>
+          <Navbar searchWord={searchWord} setSearchWord={setSearchWord} searchFn={search} />
+          <Layout>
+            <Switch>
+              <Route exact path="/">
+                <CardContainer />
+              </Route>
+              <Route path="/favorites">
+                <FavoritesContainer />
+              </Route>
+              <Route path="/:id">
+                <VideoPlayerContainer />
+              </Route>
+            </Switch>
+          </Layout>
+        </VideoContext.Provider>
       </AuthProvider>
     </BrowserRouter>
   );

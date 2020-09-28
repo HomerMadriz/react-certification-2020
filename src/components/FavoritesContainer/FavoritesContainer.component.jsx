@@ -10,7 +10,7 @@ const Grid = styled.div`
   flex-wrap: wrap;
   box-sizing: border-box;
   overflow: scroll;
-  justify-content: center;
+  justify-content: left;
   padding: 25px;
 
   & a {
@@ -20,18 +20,18 @@ const Grid = styled.div`
 `;
 
 
-const CardContainer = () => {
+const FavoritesContainer = () => {
   const { state, dispatch } = useContext(VideoContext);
+  console.log(state.favorites);
   
-  console.log(state.videos);
-  if(JSON.stringify(state.videos) === JSON.stringify({})) {
+  if(state.favorites.length === 0) {
     return (
-      <p>Loading...</p>
+      <p>No favorites</p>
     )
   }  else {
     return (
       <Grid>
-        {state.videos.map((video, index) => {
+        {state.favorites.map((video, index) => {
           return (
             <Link key={index} to={`/${video.id.videoId}`} onClick={() => dispatch({ type: "SET_CURRENT_VIDEO", payload: video})}>
               <Card 
@@ -46,4 +46,4 @@ const CardContainer = () => {
 
 };
 
-export default CardContainer;
+export default FavoritesContainer;

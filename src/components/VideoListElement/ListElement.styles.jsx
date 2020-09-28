@@ -4,6 +4,14 @@ const Element = styled.div`
   height: 100px;
   position: relative;
   display: flex;
+
+  & a {
+    height: 100px;
+    position: relative;
+    display: flex;
+    color: black;
+    text-decoration: none;
+  }
 `;
 
 const VideoImage = styled.img`

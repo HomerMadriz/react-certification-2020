@@ -11,8 +11,8 @@ const List = styled.div`
 const VideoPlayerList = ({ videos }) => {
   return (
     <List>
-      {videos.map((video) => {
-        return <VideoListElement video={video} />;
+      {videos.map((video, index) => {
+        return <VideoListElement key={video.id.videoId} video={video} index={index} />;
       })}
     </List>
   );
