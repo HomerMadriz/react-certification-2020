@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { useAuth } from '../../providers/Auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,12 +73,16 @@ const Nav = ({ searchWord, setSearchWord, searchFn }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
+  const { authenticated, logout } = useAuth();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleMenuClose = () => {
+    if(authenticated) {
+      logout();
+    }
     setAnchorEl(null);
   };
 
@@ -92,8 +97,7 @@ const Nav = ({ searchWord, setSearchWord, searchFn }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <Link to="/login" style={{ color: 'black', cursor: 'pointer' }}><MenuItem onClick={handleMenuClose}>{authenticated ? 'Log out' : 'Log in'}</MenuItem></Link>
     </Menu>
   );
 

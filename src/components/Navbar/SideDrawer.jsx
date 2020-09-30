@@ -4,6 +4,7 @@ import { Menu } from "@material-ui/icons";
 import React from "react";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
+import { useAuth } from "../../providers/Auth";
 
 const useStyles = makeStyles({
     list: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles({
 });
 
 const SideDrawer = () => {
+    const { authenticated } = useAuth();
     const classes = useStyles();
     const [state, setState] = useState({ left: false });
     const toggleDrawer = (anchor, open) => event => {
@@ -41,11 +43,12 @@ const SideDrawer = () => {
                         <ListItemText primary={"Home"}></ListItemText>
                     </ListItem>
                 </Link>
+                { authenticated ? 
                 <Link to="/favorites">
                     <ListItem button>
                         <ListItemText primary={"Favorites"} style={{ color: `black` }}></ListItemText>
                     </ListItem>
-                </Link>
+                </Link> : ""}
             </List>
         </div>
     );

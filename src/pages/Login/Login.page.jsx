@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 
 import { useAuth } from '../../providers/Auth';
+import loginApi from '../../utils/api/login.api';
 import './Login.styles.css';
 
 function LoginPage() {
@@ -10,8 +11,13 @@ function LoginPage() {
 
   function authenticate(event) {
     event.preventDefault();
-    login();
-    history.push('/secret');
+    let user = loginApi(event.target.username.value, event.target.password.value);
+    user.then(() => {
+      login();
+      history.push('/');
+    }).catch((err) => {
+      window.alert('Username or password invalid');
+    });
   }
 
   return (

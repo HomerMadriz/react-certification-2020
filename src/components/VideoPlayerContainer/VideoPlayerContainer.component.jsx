@@ -19,7 +19,7 @@ const VideoPlayerContainer = () => {
   return (
       <Grid>
         <VideoPlayer video={state.currentVideo} />
-        <VideoPlayerList videos={state.videos} />
+        <VideoPlayerList videos={state.isComingFromFavorites ? state.favorites : state.videos} />
       </Grid>
 
   );

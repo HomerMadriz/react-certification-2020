@@ -11,6 +11,9 @@ import useYoutube from '../../utils/hooks/useYoutube';
 import VideoReducer from '../../State/Videos/VideoReducer';
 import VideoContext from '../../State/Videos/VideoContext';
 import FavoritesContainer from '../FavoritesContainer/FavoritesContainer.component';
+import LoginPage from '../../pages/Login/Login.page';
+import NotFoundPage from '../NotFound/NotFound.page';
+import Private from '../Private/Private.component';
 
 //API_KEY = "AIzaSyBh7m2YgDH-ATwhZ6v-CBh8qqTMVCvOqBs"
 function App() {
@@ -21,7 +24,8 @@ function App() {
   const [state, dispatch] = useReducer(VideoReducer, {
     videos,
     currentVideo: {},
-    favorites: []
+    favorites: [],
+    isComingFromFavorites : false
   });
 
   useEffect(() => {
@@ -61,9 +65,12 @@ function App() {
               <Route exact path="/">
                 <CardContainer />
               </Route>
-              <Route path="/favorites">
-                <FavoritesContainer />
+              <Route path="/login">
+                <LoginPage />
               </Route>
+              <Private path="/favorites">
+                <FavoritesContainer />
+              </Private>
               <Route path="/:id">
                 <VideoPlayerContainer />
               </Route>

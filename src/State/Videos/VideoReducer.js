@@ -22,6 +22,12 @@ const VideoReducer = (state, action) => {
                 ...state,
                 favorites: action.payload
             }
+        case "SET_COMING_FROM_FAVORITES": {
+            return {
+                ...state,
+                isComingFromFavorites :action.payload
+            }
+        }
         default:
             return state;
     }
