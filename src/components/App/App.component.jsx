@@ -12,7 +12,6 @@ import VideoReducer from '../../State/Videos/VideoReducer';
 import VideoContext from '../../State/Videos/VideoContext';
 import FavoritesContainer from '../FavoritesContainer/FavoritesContainer.component';
 import LoginPage from '../../pages/Login/Login.page';
-import NotFoundPage from '../NotFound/NotFound.page';
 import Private from '../Private/Private.component';
 
 //API_KEY = "AIzaSyBh7m2YgDH-ATwhZ6v-CBh8qqTMVCvOqBs"
