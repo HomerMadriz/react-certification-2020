@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SideDrawer from './SideDrawer';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import SideDrawer from './SideDrawer';
 import { useAuth } from '../../providers/Auth';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
-    flexGrow: 1
+    flexGrow: 1,
   },
   search: {
     position: 'relative',
@@ -69,7 +69,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Nav = ({ searchWord, setSearchWord, searchFn }) => {
-
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -80,7 +79,7 @@ const Nav = ({ searchWord, setSearchWord, searchFn }) => {
   };
 
   const handleMenuClose = () => {
-    if(authenticated) {
+    if (authenticated) {
       logout();
     }
     setAnchorEl(null);
@@ -97,7 +96,11 @@ const Nav = ({ searchWord, setSearchWord, searchFn }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Link to="/login" style={{ color: 'black', cursor: 'pointer' }}><MenuItem onClick={handleMenuClose}>{authenticated ? 'Log out' : 'Log in'}</MenuItem></Link>
+      <Link to="/login" style={{ color: 'black', cursor: 'pointer' }}>
+        <MenuItem onClick={handleMenuClose}>
+          {authenticated ? 'Log out' : 'Log in'}
+        </MenuItem>
+      </Link>
     </Menu>
   );
 
@@ -105,7 +108,7 @@ const Nav = ({ searchWord, setSearchWord, searchFn }) => {
     <>
       <AppBar position="static">
         <Toolbar>
-          <SideDrawer></SideDrawer>
+          <SideDrawer />
           <Link to="/" style={{ color: 'white', cursor: 'pointer' }}>
             <Typography className={classes.title} variant="h6" noWrap>
               WizeTube
@@ -124,7 +127,7 @@ const Nav = ({ searchWord, setSearchWord, searchFn }) => {
                 }}
                 value={searchWord}
                 inputProps={{ 'aria-label': 'search' }}
-                onChange={e => setSearchWord(e.target.value)}
+                onChange={(e) => setSearchWord(e.target.value)}
               />
             </form>
           </div>
@@ -142,6 +145,6 @@ const Nav = ({ searchWord, setSearchWord, searchFn }) => {
       </AppBar>
       {renderMenu}
     </>
-  )
-}
+  );
+};
 export default Nav;

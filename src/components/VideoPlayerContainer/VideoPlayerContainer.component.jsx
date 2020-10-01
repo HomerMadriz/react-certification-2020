@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import VideoContext from '../../State/Videos/VideoContext';
 import VideoPlayer from '../VideoPlayer/VideoPlayer.component';
 import VideoPlayerList from '../VideoPlayerList/VideoPlayerList.component';
-//import videos from '../../assets/results';
+// import videos from '../../assets/results';
 
 const Grid = styled.div`
   width: 100%;
@@ -13,15 +13,15 @@ const Grid = styled.div`
 `;
 
 const VideoPlayerContainer = () => {
-
   const { state } = useContext(VideoContext);
-  //console.log(state);
+  // console.log(state);
   return (
-      <Grid>
-        <VideoPlayer video={state.currentVideo} />
-        <VideoPlayerList videos={state.isComingFromFavorites ? state.favorites : state.videos} />
-      </Grid>
-
+    <Grid>
+      <VideoPlayer video={state.currentVideo} />
+      <VideoPlayerList
+        videos={state.isComingFromFavorites ? state.favorites : state.videos}
+      />
+    </Grid>
   );
 };
 

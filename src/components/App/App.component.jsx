@@ -14,9 +14,7 @@ import FavoritesContainer from '../FavoritesContainer/FavoritesContainer.compone
 import LoginPage from '../../pages/Login/Login.page';
 import Private from '../Private/Private.component';
 
-//API_KEY = "AIzaSyBh7m2YgDH-ATwhZ6v-CBh8qqTMVCvOqBs"
 function App() {
-
   const [searchWord, setSearchWord] = useState('Wizeline');
   const [query, setQuery] = useState(searchWord);
   const videos = useYoutube(query);
@@ -24,17 +22,17 @@ function App() {
     videos,
     currentVideo: {},
     favorites: [],
-    isComingFromFavorites : false
+    isComingFromFavorites: false,
   });
 
   useEffect(() => {
-    dispatch({ type: "SET_VIDEOS", payload: videos })
+    dispatch({ type: 'SET_VIDEOS', payload: videos });
   }, [videos]);
 
   const search = (event) => {
     event.preventDefault();
     setQuery(searchWord);
-  }
+  };
 
   useLayoutEffect(() => {
     const { body } = document;
@@ -58,7 +56,11 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <VideoContext.Provider value={{ state, dispatch }}>
-          <Navbar searchWord={searchWord} setSearchWord={setSearchWord} searchFn={search} />
+          <Navbar
+            searchWord={searchWord}
+            setSearchWord={setSearchWord}
+            searchFn={search}
+          />
           <Layout>
             <Switch>
               <Route exact path="/">

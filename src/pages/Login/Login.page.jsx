@@ -11,14 +11,16 @@ function LoginPage() {
 
   function authenticate(event) {
     event.preventDefault();
-    let user = loginApi(event.target.username.value, event.target.password.value);
-    user.then(() => {
-      login();
-      history.push('/');
-    }).catch((err) => {
-      console.log(err);
-      window.alert('Username or password invalid');
-    });
+    const user = loginApi(event.target.username.value, event.target.password.value);
+    user
+      .then(() => {
+        login();
+        history.push('/');
+      })
+      .catch((err) => {
+        console.log(err);
+        window.alert('Username or password invalid');
+      });
   }
 
   return (

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import VideoContext from '../../State/Videos/VideoContext';
-//import videos from '../../assets/results';
+// import videos from '../../assets/results';
 import Card from '../Card';
 
 const Grid = styled.div`
@@ -19,34 +19,31 @@ const Grid = styled.div`
   }
 `;
 
-
 const CardContainer = () => {
   const { state, dispatch } = useContext(VideoContext);
-  
-  console.log(state.videos);
-  if(JSON.stringify(state.videos) === JSON.stringify({})) {
-    return (
-      <p>Loading...</p>
-    )
-  }  else {
-    return (
-      <Grid>
-        {state.videos.map((video) => {
-          return (
-            <Link key={video.etag} to={`/${video.id.videoId}`} onClick={() => { 
-              dispatch({ type: "SET_CURRENT_VIDEO", payload: video});
-              dispatch({ type: "SET_COMING_FROM_FAVORITES", payload: false}); 
-              }}>
-              <Card 
-                key={video.id.videoId} 
-                video={video} />
-            </Link>
-          );
-        })}
-      </Grid>
-    );
-  }
 
+  console.log(state.videos);
+  if (JSON.stringify(state.videos) === JSON.stringify({})) {
+    return <p>Loading...</p>;
+  }
+  return (
+    <Grid>
+      {state.videos.map((video) => {
+        return (
+          <Link
+            key={video.etag}
+            to={`/${video.id.videoId}`}
+            onClick={() => {
+              dispatch({ type: 'SET_CURRENT_VIDEO', payload: video });
+              dispatch({ type: 'SET_COMING_FROM_FAVORITES', payload: false });
+            }}
+          >
+            <Card key={video.id.videoId} video={video} />
+          </Link>
+        );
+      })}
+    </Grid>
+  );
 };
 
 export default CardContainer;

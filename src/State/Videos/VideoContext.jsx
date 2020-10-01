@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
 const VideoContext = React.createContext({
-    videos: [],
-    favoriteVideos: [],
-    currentVideo: {},
-    setCurrentVideo: () => {},
-    addFavoriteVideo: () => {},
-    removeFavoriteVideo: () => {}
+  videos: [],
+  favoriteVideos: [],
+  currentVideo: {},
+  setCurrentVideo: () => {},
+  addFavoriteVideo: () => {},
+  removeFavoriteVideo: () => {},
 });
 
-export default VideoContext
+export default VideoContext;

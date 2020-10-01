@@ -4,20 +4,23 @@ import { Element, VideoImage, VideoTitle } from './ListElement.styles';
 import VideoContext from '../../State/Videos/VideoContext';
 
 const VideoListElement = ({ video }) => {
-
   const { dispatch } = useContext(VideoContext);
 
   return (
     <>
-    <Element>
-      <Link key={video.etag} to={`/${video.id.videoId}`} onClick={() => dispatch({ type: "SET_CURRENT_VIDEO", payload: video })}>
-        <VideoImage src={video.snippet.thumbnails.default.url} />
-        <VideoTitle>
-          <p>{video.snippet.title}</p>
-        </VideoTitle>
-      </Link>
-    </Element>
-    <Divider />
+      <Element>
+        <Link
+          key={video.etag}
+          to={`/${video.id.videoId}`}
+          onClick={() => dispatch({ type: 'SET_CURRENT_VIDEO', payload: video })}
+        >
+          <VideoImage src={video.snippet.thumbnails.default.url} />
+          <VideoTitle>
+            <p>{video.snippet.title}</p>
+          </VideoTitle>
+        </Link>
+      </Element>
+      <Divider />
     </>
   );
 };
