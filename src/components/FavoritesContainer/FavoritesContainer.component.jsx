@@ -31,9 +31,9 @@ const FavoritesContainer = () => {
   }  else {
     return (
       <Grid>
-        {state.favorites.map((video, index) => {
+        {state.favorites.map((video) => {
           return (
-            <Link key={index} to={`/${video.id.videoId}`} onClick={() => {
+            <Link key={video.etag} to={`/${video.id.videoId}`} onClick={() => {
                dispatch({ type: "SET_CURRENT_VIDEO", payload: video});
                dispatch({ type: "SET_COMING_FROM_FAVORITES", payload: true});
                }}>

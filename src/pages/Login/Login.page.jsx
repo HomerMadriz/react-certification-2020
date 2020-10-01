@@ -16,6 +16,7 @@ function LoginPage() {
       login();
       history.push('/');
     }).catch((err) => {
+      console.log(err);
       window.alert('Username or password invalid');
     });
   }

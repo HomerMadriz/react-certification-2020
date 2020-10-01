@@ -31,9 +31,9 @@ const CardContainer = () => {
   }  else {
     return (
       <Grid>
-        {state.videos.map((video, index) => {
+        {state.videos.map((video) => {
           return (
-            <Link key={index} to={`/${video.id.videoId}`} onClick={() => { 
+            <Link key={video.etag} to={`/${video.id.videoId}`} onClick={() => { 
               dispatch({ type: "SET_CURRENT_VIDEO", payload: video});
               dispatch({ type: "SET_COMING_FROM_FAVORITES", payload: false}); 
               }}>
