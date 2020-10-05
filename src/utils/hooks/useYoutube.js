@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { API_KEY } from '../../credentials.json';
+
+const { REACT_APP_API_KEY } = process.env;
 
 const API_URL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20';
 
@@ -11,7 +12,7 @@ function useYoutube(searchWord) {
       console.log('Serching', searchWord);
       try {
         const response = await fetch(
-          `${API_URL}&q=${searchWord}&type=video&key=${API_KEY}`
+          `${API_URL}&q=${searchWord}&type=video&key=${REACT_APP_API_KEY}`
         );
         const data = await response.json();
         setVideos(data.items);
