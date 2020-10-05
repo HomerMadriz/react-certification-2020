@@ -22,7 +22,7 @@ const Grid = styled.div`
 const CardContainer = () => {
   const { state, dispatch } = useContext(VideoContext);
 
-  //console.log(state);
+  // console.log(state);
   if (JSON.stringify(state.videos) === JSON.stringify({})) {
     return <p>Loading...</p>;
   }

@@ -1,23 +1,22 @@
 import React from 'react';
-import App from './App.component';
 import { render, screen } from '@testing-library/react';
+import App from './App.component';
 import videos from '../../assets/results';
 import useYoutube from '../../utils/hooks/useYoutube';
 
-jest.mock('../../utils/hooks/useYoutube', () => jest.fn(() => []))
+jest.mock('../../utils/hooks/useYoutube', () => jest.fn(() => []));
 
 describe('App test', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
     useYoutube.mockImplementation((searchWord) => {
-      if(searchWord === 'Wizeline') {
+      if (searchWord === 'Wizeline') {
         return videos;
-      } else {
-        return [];
       }
-    })
-  })
+      return [];
+    });
+  });
 
   it('renders App component', async () => {
     render(<App />);
@@ -31,5 +30,5 @@ describe('App test', () => {
     const input = await screen.getByPlaceholderText('Search…');
 
     expect(input).toHaveValue('Wizeline');
-  })
+  });
 });

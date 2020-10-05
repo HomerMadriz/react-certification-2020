@@ -1,80 +1,81 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 import videos from '../../assets/results';
 import VideoContext from '../../State/Videos/VideoContext';
 import VideoPlayer from './VideoPlayer.component';
 import { useAuth } from '../../providers/Auth';
-import { BrowserRouter } from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
 
 jest.mock('../../providers/Auth', () => ({
-    useAuth : jest.fn()
-}))
+  useAuth: jest.fn(),
+}));
 
 describe('Video Player test', () => {
-    
-    beforeEach(() => {
-        jest.clearAllMocks();
-        
-        useAuth.mockReturnValue({ authenticated : true });
-    });
+  beforeEach(() => {
+    jest.clearAllMocks();
 
-    it('creates the correct iframe', () => {
-        const state = { 
-            currentVideo :  videos[0],
-            videos : videos[0]
-        }
+    useAuth.mockReturnValue({ authenticated: true });
+  });
 
-        render(
-            <VideoContext.Provider value={{ state }}>
-                <VideoPlayer />
-            </VideoContext.Provider> 
-        )
+  it('creates the correct iframe', () => {
+    const state = {
+      currentVideo: videos[0],
+      videos: videos[0],
+    };
 
-        expect(screen.getByTestId('iframe').getAttribute('src')).toBe(`https://www.youtube.com/embed/${videos[0].id.videoId}`)
-    });
+    render(
+      <VideoContext.Provider value={{ state }}>
+        <VideoPlayer />
+      </VideoContext.Provider>
+    );
 
-    it('Execute dispatch for remove favorite video', () => {
-        let video = videos[0];
-        video.isFavorite = true;
-        const state = { 
-            currentVideo :  video,
-            videos : video
-        }
-        const dispatch = jest.fn();
+    expect(screen.getByTestId('iframe').getAttribute('src')).toBe(
+      `https://www.youtube.com/embed/${videos[0].id.videoId}`
+    );
+  });
 
-        render(
-            <BrowserRouter>
-                <VideoContext.Provider value={{ state, dispatch }}>
-                    <VideoPlayer />
-                </VideoContext.Provider> 
-            </BrowserRouter>
-        )
-        
-        userEvent.click(screen.getByText('Remover de favoritos'))
+  it('Execute dispatch for remove favorite video', () => {
+    const video = videos[0];
+    video.isFavorite = true;
+    const state = {
+      currentVideo: video,
+      videos: video,
+    };
+    const dispatch = jest.fn();
 
-        expect(dispatch).toBeCalledWith({ type: 'REMOVE_FAVORITE_VIDEO' });
-    })
+    render(
+      <BrowserRouter>
+        <VideoContext.Provider value={{ state, dispatch }}>
+          <VideoPlayer />
+        </VideoContext.Provider>
+      </BrowserRouter>
+    );
 
-    it('Execute dispatch for remove favorite video', () => {
-        let video = videos[0];
-        video.isFavorite = false;
-        const state = { 
-            currentVideo :  video,
-            videos : video
-        }
-        const dispatch = jest.fn();
+    userEvent.click(screen.getByText('Remover de favoritos'));
 
-        render(
-            <BrowserRouter>
-                <VideoContext.Provider value={{ state, dispatch }}>
-                    <VideoPlayer />
-                </VideoContext.Provider> 
-            </BrowserRouter>
-        )
-        
-        userEvent.click(screen.getByText('Agregar a favoritos'))
+    expect(dispatch).toBeCalledWith({ type: 'REMOVE_FAVORITE_VIDEO' });
+  });
 
-        expect(dispatch).toBeCalledWith({ type: 'ADD_FAVORITE_VIDEO', payload: video });
-    })
-})
+  it('Execute dispatch for remove favorite video', () => {
+    const video = videos[0];
+    video.isFavorite = false;
+    const state = {
+      currentVideo: video,
+      videos: video,
+    };
+    const dispatch = jest.fn();
+
+    render(
+      <BrowserRouter>
+        <VideoContext.Provider value={{ state, dispatch }}>
+          <VideoPlayer />
+        </VideoContext.Provider>
+      </BrowserRouter>
+    );
+
+    userEvent.click(screen.getByText('Agregar a favoritos'));
+
+    expect(dispatch).toBeCalledWith({ type: 'ADD_FAVORITE_VIDEO', payload: video });
+  });
+});

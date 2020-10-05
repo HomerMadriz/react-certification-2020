@@ -6,32 +6,30 @@ import VideoPlayerContainer from './VideoPlayerContainer.component';
 import { useAuth } from '../../providers/Auth';
 
 jest.mock('../../providers/Auth', () => ({
-    useAuth : jest.fn()
-}))
+  useAuth: jest.fn(),
+}));
 
 describe('Video Player Container test', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
 
-    beforeEach(() => {
-        jest.clearAllMocks();
-        
-        useAuth.mockReturnValue({ authenticatated : true });
-    });
+    useAuth.mockReturnValue({ authenticatated: true });
+  });
 
-    it('Renders video player and video list', () => {
-        const state = { 
-            currentVideo: videos[0],
-            videos: videos,
-            isComingFromFavorites : false
-         }
+  it('Renders video player and video list', () => {
+    const state = {
+      currentVideo: videos[0],
+      videos,
+      isComingFromFavorites: false,
+    };
 
-        render(
-             <VideoContext.Provider value={{ state }}>
-                <VideoPlayerContainer />
-            </VideoContext.Provider>
-         )
+    render(
+      <VideoContext.Provider value={{ state }}>
+        <VideoPlayerContainer />
+      </VideoContext.Provider>
+    );
 
-        expect(screen.getByText('Wizeline')).toBeTruthy();
-        expect(screen.getByText('How does Wizeline work?')).toBeTruthy();
-
-    })
+    expect(screen.getByText('Wizeline')).toBeTruthy();
+    expect(screen.getByText('How does Wizeline work?')).toBeTruthy();
+  });
 });

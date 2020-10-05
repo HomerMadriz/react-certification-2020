@@ -6,32 +6,30 @@ import { useAuth } from '../../providers/Auth';
 import Nav from './Navbar.component';
 
 jest.mock('../../providers/Auth', () => ({
-    useAuth : jest.fn()
-}))
+  useAuth: jest.fn(),
+}));
 
 describe('Navbar component test', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
+  it('Test log out', () => {
+    const logout = jest.fn();
+    useAuth.mockReturnValue({ authenticated: true, logout });
 
+    const { container } = render(
+      <BrowserRouter>
+        <Nav />
+      </BrowserRouter>
+    );
 
-    it('Test log out', () => {
-        let logout = jest.fn();
-        useAuth.mockReturnValue({ authenticated : true, logout });
+    userEvent.click(container.querySelector('.profilebutton'));
 
-        const { container } = render(
-            <BrowserRouter>
-                <Nav></Nav>
-            </BrowserRouter>
-        )
+    expect(screen.getByText('Log out')).toBeTruthy();
 
-        userEvent.click(container.querySelector('.profilebutton'));
+    userEvent.click(screen.getByText('Log out'));
 
-        expect(screen.getByText('Log out')).toBeTruthy();
-
-        userEvent.click(screen.getByText('Log out'));
-
-        expect(logout).toBeCalled();
-    });
+    expect(logout).toBeCalled();
+  });
 });
