@@ -19,6 +19,7 @@ const VideoPlayer = () => {
   return (
     <PlayerContainer>
       <PlayerFrame
+        data-testid="iframe"
         title="video"
         src={`https://www.youtube.com/embed/${video.id.videoId}`}
       />

@@ -118,7 +118,7 @@ const Nav = ({ searchWord, setSearchWord, searchFn }) => {
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            <form onSubmit={searchFn}>
+            <form onSubmit={searchFn} data-testid="form">
               <InputBase
                 placeholder="Search…"
                 classes={{
@@ -133,11 +133,12 @@ const Nav = ({ searchWord, setSearchWord, searchFn }) => {
           </div>
           <div className={classes.grow} />
           <IconButton
-            aria-label="account of current user"
+            aria-label="current user pic"
             aria-controls="primary-search-account-menu"
             aria-haspopup="true"
             onClick={handleProfileMenuOpen}
             color="inherit"
+            className="profilebutton"
           >
             <AccountCircle />
           </IconButton>

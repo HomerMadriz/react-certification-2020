@@ -9,12 +9,13 @@ const VideoListElement = ({ video }) => {
   return (
     <>
       <Element>
-        <Link
+        <Link 
+          data-testid="link"
           key={video.etag}
           to={`/${video.id.videoId}`}
           onClick={() => dispatch({ type: 'SET_CURRENT_VIDEO', payload: video })}
         >
-          <VideoImage src={video.snippet.thumbnails.default.url} />
+          <VideoImage src={video.snippet.thumbnails.default.url} data-testid="image"/>
           <VideoTitle>
             <p>{video.snippet.title}</p>
           </VideoTitle>

@@ -11,6 +11,7 @@ function LoginPage() {
 
   function authenticate(event) {
     event.preventDefault();
+    console.log(event.target.username);
     const user = loginApi(event.target.username.value, event.target.password.value);
     user
       .then(() => {
@@ -26,7 +27,7 @@ function LoginPage() {
   return (
     <section className="login">
       <h1>Welcome back!</h1>
-      <form onSubmit={authenticate} className="login-form">
+      <form onSubmit={authenticate} className="login-form" data-testid="form">
         <div className="form-group">
           <label htmlFor="username">
             <strong>username </strong>
@@ -39,7 +40,7 @@ function LoginPage() {
             <input required type="password" id="password" />
           </label>
         </div>
-        <button type="submit">login</button>
+        <button type="submit" data-testid="submitButton">login</button>
       </form>
     </section>
   );
